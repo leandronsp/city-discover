@@ -11,5 +11,6 @@ class City < ActiveRecord::Base
     country: :name,
     city_aliases: [:name]
   },
-  using: [:tsearch, :dmetaphone, :trigram]
+  using: [:tsearch, :dmetaphone, :trigram],
+  ignoring: :accents
 end
