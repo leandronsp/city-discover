@@ -15,7 +15,7 @@ class City < ActiveRecord::Base
     },
     ignoring: :accents,
     using: { tsearch: { only: [:name] }},
-    ranked_by: 'log(GREATEST(CAST(cities.population AS integer), 1)) * :tsearch',
+    ranked_by: 'log(GREATEST(CAST(cities.population AS integer), 3)) * :tsearch',
     order_within_rank: 'pg_search_rank DESC'
 
   pg_search_scope :_fuzzy_search,
@@ -25,6 +25,6 @@ class City < ActiveRecord::Base
       trigram: { only: [:name], threshold: 0.5 }
     },
     ignoring: :accents,
-    ranked_by: 'log(GREATEST(CAST(cities.population AS integer), 1)) * :tsearch',
+    ranked_by: 'log(GREATEST(CAST(cities.population AS integer), 3)) * :tsearch',
     order_within_rank: 'pg_search_rank DESC'
 end
