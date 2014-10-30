@@ -11,6 +11,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'settingslogic'
 gem 'pg'
 gem 'pg_search'
+gem 'activerecord-postgres-earthdistance'
 
 group :development, :test do
   gem 'codeclimate-test-reporter', require: nil

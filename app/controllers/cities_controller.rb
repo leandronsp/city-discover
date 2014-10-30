@@ -1,11 +1,20 @@
 class CitiesController < ApplicationController
   def search
-    results = City._search(params[:term])
+    render json: scope._search(params[:term].presence) ||
+                 scope._fuzzy_search(params[:term])
+  end
 
-    if results.blank?
-      results = City._fuzzy_search(params[:term])
+  private
+
+  def scope
+    if params[:location].present?
+      City.within_radius(radius, params[:location][:lat], params[:location][:lon])
+    else
+      City
     end
+  end
 
-    render json: results
+  def radius
+    params[:radius].presence || 50000
   end
 end

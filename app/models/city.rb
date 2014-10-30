@@ -1,6 +1,8 @@
 class City < ActiveRecord::Base
   include PgSearch
 
+  acts_as_geolocated
+
   belongs_to :region
   belongs_to :country
 
