@@ -6,11 +6,25 @@ class City < ActiveRecord::Base
 
   has_many :city_aliases
 
-  pg_search_scope :_search, associated_against: {
-    region: :name,
-    country: :name,
-    city_aliases: [:name]
-  },
-  using: [:tsearch, :dmetaphone, :trigram],
-  ignoring: :accents
+  pg_search_scope :_search,
+    against: { name: 'A' },
+    associated_against: {
+      region: { name: 'C' },
+      country: { name: 'D' },
+      city_aliases: { name: 'B' }
+    },
+    ignoring: :accents,
+    using: { tsearch: { only: [:name] }},
+    ranked_by: 'log(GREATEST(CAST(cities.population AS integer), 1)) * :tsearch',
+    order_within_rank: 'pg_search_rank DESC'
+
+  pg_search_scope :_fuzzy_search,
+    against: :name,
+    using: {
+      tsearch: { dictionary: 'simple' },
+      trigram: { only: [:name], threshold: 0.5 }
+    },
+    ignoring: :accents,
+    ranked_by: 'log(GREATEST(CAST(cities.population AS integer), 1)) * :tsearch',
+    order_within_rank: 'pg_search_rank DESC'
 end
