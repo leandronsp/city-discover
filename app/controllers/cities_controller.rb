@@ -1,6 +1,6 @@
 class CitiesController < ApplicationController
   def search
-    render json: scope._search(params[:term].presence) ||
+    render json: scope._search(params[:term]).presence ||
                  scope._fuzzy_search(params[:term])
   end
 
@@ -8,9 +8,9 @@ class CitiesController < ApplicationController
 
   def scope
     if params[:location].present?
-      City.within_radius(radius, params[:location][:lat], params[:location][:lon])
+      CityDocument.within_radius(radius, params[:location][:lat], params[:location][:lon])
     else
-      City
+      CityDocument
     end
   end
 
