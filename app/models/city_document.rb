@@ -37,7 +37,7 @@ class CityDocument < ActiveRecord::Base
   pg_search_scope :_fuzzy_search,
     against: :city_name,
     using: {
-      tsearch: { dictionary: 'simple' },
+      tsearch: { dictionary: 'simple', prefix: true, any_word: true },
       trigram: { only: [:city_name], threshold: 0.5 }
     },
     ignoring: :accents,
