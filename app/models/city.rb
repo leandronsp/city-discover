@@ -1,4 +1,6 @@
 class City < ActiveRecord::Base
+  acts_as_geolocated
+
   belongs_to :region
   belongs_to :country
 
