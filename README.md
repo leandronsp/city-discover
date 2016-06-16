@@ -3,4 +3,4 @@
 A PoC using Rails 4 + PostgreSQL Text Search
 
 See my blog post about it:
-http://unlessnot.com/2014/11/02/postgres-text-search-practical-look-parti.html
+https://medium.com/@leandronsp/a-practical-look-at-postgresql-text-search-part-i-aee3f65e3b79#.kz8v9xabl
